@@ -3,6 +3,7 @@ SchooMyUtilities scmUtils = SchooMyUtilities();
 
 float brightness = 0;
 float uptime = 0;
+bool detected = false;
 
 float _sbeGetBrightness(int pinNumber, int res, float vol) {
     pinMode(pinNumber, INPUT);
@@ -15,16 +16,19 @@ float _sbeGetBrightness(int pinNumber, int res, float vol) {
     return 10000 * cds_v / v_res / 1000;
 }
 
-
 void setup() {
     Serial.begin(9600);
 }
 
 void loop() {
     brightness = _sbeGetBrightness(A5, 1023, 5);
-    uptime = millis();
-    if ((brightness >= 100) && (uptime >= 9600)) {
-        Serial.println("Success");
+
+    if (brightness >= 100) {
+        if (!detected) {
+            Serial.println("Success");
+            detected = true;
+        }
+    } else {
+        detected = false;
     }
 }
-
