@@ -2,8 +2,11 @@
 SchooMyUtilities scmUtils = SchooMyUtilities();
 
 float brightness = 0;
-float uptime = 0;
-bool detected = false;
+
+bool highActive = false;
+bool triggered = false;
+unsigned long highStartTime = 0;
+const int THRESHOLD = 60;
 
 float _sbeGetBrightness(int pinNumber, int res, float vol) {
     pinMode(pinNumber, INPUT);
@@ -23,12 +26,21 @@ void setup() {
 void loop() {
     brightness = _sbeGetBrightness(A5, 1023, 5);
 
-    if (brightness >= 100) {
-        if (!detected) {
-            Serial.println("Success");
-            detected = true;
+    if (brightness >= THRESHOLD) {
+
+        if (!highActive) {
+            highActive = true;
+            highStartTime = millis();
+            triggered = false;
         }
+
+        if (!triggered && (millis() - highStartTime >= 10000)) {
+            Serial.println("Success");
+            triggered = true;
+        }
+
     } else {
-        detected = false;
+        highActive = false;
+        triggered = false;
     }
 }
