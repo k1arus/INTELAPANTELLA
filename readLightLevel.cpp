@@ -6,7 +6,7 @@ float brightness = 0;
 bool highActive = false;
 bool triggered = false;
 unsigned long highStartTime = 0;
-const int THRESHOLD = 110;
+const int THRESHOLD = 150;
 
 float _sbeGetBrightness(int pinNumber, int res, float vol) {
     pinMode(pinNumber, INPUT);
