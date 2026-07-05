@@ -1,5 +1,7 @@
-#include <SchooMyUtilities.h>
-SchooMyUtilities scmUtils = SchooMyUtilities();
+// Read realtime light level and display it via serial port.
+
+#include <VendorUtilities.h> // Modify properly with SchooMy Block Editor (https://fox.schoomy.com/boards/editor)
+VendorUtilities vendorUtils = VendorUtilities(); // Modify properly with SchooMy Block Editor (https://fox.schoomy.com/boards/editor)
 
 float brightness = 0;
 

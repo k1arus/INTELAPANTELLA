@@ -1,12 +1,14 @@
-#include <SchooMyUtilities.h>
-SchooMyUtilities scmUtils = SchooMyUtilities();
+// If light is shone on the light sensor for 10 seconds, send “Success.”
+
+#include <VendorUtilities.h> // Modify properly with SchooMy Block Editor (https://fox.schoomy.com/boards/editor)
+VendorUtilities vendorUtils = VendorUtilities(); // Modify properly with SchooMy Block Editor (https://fox.schoomy.com/boards/editor)
 
 float brightness = 0;
 
 bool highActive = false;
 bool triggered = false;
 unsigned long highStartTime = 0;
-const int THRESHOLD = 150;
+const int THRESHOLD = 100;
 
 float _sbeGetBrightness(int pinNumber, int res, float vol) {
     pinMode(pinNumber, INPUT);
@@ -35,6 +37,8 @@ void loop() {
         }
 
         if (!triggered && (millis() - highStartTime >= 10000)) {
+            Serial.println("Success");
+            Serial.println("Success");
             Serial.println("Success");
             triggered = true;
         }
